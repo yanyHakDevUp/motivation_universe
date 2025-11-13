@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivation Universe - Your Journey to Happiness</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <!-- Galaxy Background -->
+    <div id="galaxy"></div>
+
+    <!-- Keyboard Hint -->
+    <div class="keyboard-hint">
+        Press <kbd>Space</kbd> for quotes • <kbd>B</kbd> for breathing • <kbd>T</kbd> for transform
+    </div>
+
+    <!-- Floating Menu -->
+    <div class="floating-menu">
+        <div class="menu-items" id="menuItems">
+            <div class="menu-item" onclick="scrollToSection('emotion')" style="animation-delay: 0.1s;">
+                <i class="fas fa-heart"></i>
+            </div>
+            <div class="menu-item" onclick="scrollToSection('cube')" style="animation-delay: 0.2s;">
+                <i class="fas fa-cube"></i>
+            </div>
+            <div class="menu-item" onclick="scrollToSection('breathing')" style="animation-delay: 0.3s;">
+                <i class="fas fa-wind"></i>
+            </div>
+            <div class="menu-item" onclick="scrollToSection('energy')" style="animation-delay: 0.4s;">
+                <i class="fas fa-bolt"></i>
+            </div>
+        </div>
+        <button class="menu-btn" onclick="toggleMenu()">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+
+    <!-- Header -->
+    <header class="text-center py-8 relative z-10">
+        <h1 class="glitch" data-text="MOTIVATION UNIVERSE">MOTIVATION UNIVERSE</h1>
+        <p class="neon-text mt-4 px-4">Your Journey from Sadness to Strength</p>
+    </header>
+
+    <!-- Smart Emotion Detector -->
+    <section id="emotion" class="container mx-auto px-4 py-8">
+        <div class="emotion-detector">
+            <h2 class="text-2xl md:text-3xl font-bold text-white text-center mb-6">
+                <i class="fas fa-brain mr-2"></i>How Are You Feeling Today?
+            </h2>
+            <textarea 
+                id="emotionInput" 
+                class="emotion-input" 
+                rows="4" 
+                placeholder="Share your feelings... I'm here to help you feel better. Whether you're sad, anxious, or just need someone to listen, type it here..."
+                oninput="detectEmotion()"
+            ></textarea>
+            <div class="text-center mt-4">
+                <button class="smart-btn" onclick="analyzeEmotion()">
+                    <i class="fas fa-magic mr-2"></i>Analyze & Help Me
+                </button>
+            </div>
+            <div id="emotionResponse" class="text-white text-center mt-6 text-lg"></div>
+        </div>
+    </section>
+
+    <!-- Responsive Grid Layout -->
+    <div class="responsive-grid">
+        <!-- 3D Motivation Cube Section -->
+        <section id="cube" class="holo-card">
+            <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">Power Cube</h2>
+            <div class="cube-container">
+                <div class="cube" onclick="activateCube()">
+                    <div class="cube-face front">BELIEVE</div>
+                    <div class="cube-face back">ACHIEVE</div>
+                    <div class="cube-face right">CREATE</div>
+                    <div class="cube-face left">INSPIRE</div>
+                    <div class="cube-face top">DREAM</div>
+                    <div class="cube-face bottom">WIN</div>
+                </div>
+            </div>
+            <p class="text-white text-center mt-4 text-sm">Click for your power word!</p>
+            <div class="text-center mt-4">
+                <button class="smart-btn" onclick="generatePowerQuote()">
+                    Generate Hope
+                </button>
+            </div>
+            <div id="powerQuote" class="text-white text-center mt-4 font-bold"></div>
+        </section>
+
+        <!-- Breathing Exercise -->
+        <section id="breathing" class="holo-card">
+            <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
+                <i class="fas fa-wind mr-2"></i>Breathing Exercise
+            </h2>
+            <div class="breathing-circle" id="breathingCircle" onclick="startBreathing()">
+                Click to Start
+            </div>
+            <p id="breathingText" class="text-white text-center mt-4">Click the circle to begin calming your mind</p>
+            <div class="text-center mt-4">
+                <svg class="progress-ring" viewBox="0 0 120 120">
+                    <circle class="progress-ring-circle" 
+                            stroke="#667eea" 
+                            stroke-width="4" 
+                            fill="transparent" 
+                            r="52" 
+                            cx="60" 
+                            cy="60"
+                            id="progressCircle"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Energy Collection -->
+        <section id="energy" class="holo-card">
+            <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
+                <i class="fas fa-bolt mr-2"></i>Energy Collection
+            </h2>
+            <p class="text-white text-center mb-4 text-sm">Collect positive energy orbs!</p>
+            <div id="energyContainer" class="relative h-48">
+                <!-- Energy orbs will be generated here -->
+            </div>
+            <div class="text-center mt-4">
+                <p class="text-white">Energy: <span id="energyCount" class="text-xl font-bold">0</span></p>
+                <div id="moodProgress" class="mt-2">
+                    <div class="w-full bg-white/20 rounded-full h-4">
+                        <div id="moodBar" class="bg-gradient-to-r from-blue-500 to-purple-500 h-4 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sadness to Strength -->
+        <section class="holo-card">
+            <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
+                <i class="fas fa-sun mr-2"></i>Sadness to Strength
+            </h2>
+            <div class="text-center">
+                <div class="text-6xl mb-4" id="emotionEmoji">🌧️</div>
+                <p class="text-white mb-4">Transform your sadness into strength</p>
+                <button class="smart-btn" onclick="transformSadness()">
+                    Transform Now
+                </button>
+                <div id="transformationMessage" class="text-white text-center mt-4"></div>
+            </div>
+        </section>
+
+        <!-- Daily Wisdom -->
+        <section class="holo-card">
+            <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
+                <i class="fas fa-lightbulb mr-2"></i>Daily Wisdom
+            </h2>
+            <div id="dailyWisdom" class="text-white text-center text-lg italic"></div>
+            <div class="text-center mt-4">
+                <button class="smart-btn" onclick="newWisdom()">
+                    New Wisdom
+                </button>
+            </div>
+        </section>
+
+        <!-- Gratitude Journal -->
+        <section class="holo-card">
+            <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
+                <i class="fas fa-heart mr-2"></i>Gratitude Journal
+            </h2>
+            <textarea 
+                id="gratitudeInput" 
+                class="emotion-input" 
+                rows="3" 
+                placeholder="What are you grateful for today?"
+            ></textarea>
+            <div class="text-center mt-4">
+                <button class="smart-btn" onclick="saveGratitude()">
+                    Save Gratitude
+                </button>
+            </div>
+            <div id="gratitudeList" class="text-white text-center mt-4 text-sm"></div>
+        </section>
+    </div>
+
+    <!-- Credit Section -->
+    <section class="credit-section">
+        <h3 class="text-2xl font-bold text-white mb-4">
+            <i class="fas fa-code mr-2"></i>Created With Love
+        </h3>
+        <p class="text-xl text-white mb-2">Hak Yany</p>
+        <p class="text-white/80">Dedicated to helping you find your inner strength</p>
+        <div class="mt-4">
+            <span class="loading-heart text-3xl">❤️</span>
+        </div>
+    </section>
+
+    <!-- Achievement Popup -->
+    <div id="achievementPopup" class="achievement-popup hidden">
+        <h2 class="text-2xl font-bold mb-4">🌟 You're Amazing!</h2>
+        <p id="achievementText" class="text-lg"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
