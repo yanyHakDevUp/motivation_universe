@@ -7,30 +7,24 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
-    <!-- Galaxy Background -->
+    <!-- Simple Galaxy Background -->
     <div id="galaxy"></div>
-
-    <!-- Keyboard Hint -->
-    <div class="keyboard-hint">
-        Press <kbd>Space</kbd> for quotes • <kbd>B</kbd> for breathing • <kbd>T</kbd> for transform
-    </div>
 
     <!-- Floating Menu -->
     <div class="floating-menu">
         <div class="menu-items" id="menuItems">
-            <div class="menu-item" onclick="scrollToSection('emotion')" style="animation-delay: 0.1s;">
+            <div class="menu-item" onclick="scrollToSection('emotion')">
                 <i class="fas fa-heart"></i>
             </div>
-            <div class="menu-item" onclick="scrollToSection('cube')" style="animation-delay: 0.2s;">
+            <div class="menu-item" onclick="scrollToSection('cube')">
                 <i class="fas fa-cube"></i>
             </div>
-            <div class="menu-item" onclick="scrollToSection('breathing')" style="animation-delay: 0.3s;">
+            <div class="menu-item" onclick="scrollToSection('breathing')">
                 <i class="fas fa-wind"></i>
             </div>
-            <div class="menu-item" onclick="scrollToSection('energy')" style="animation-delay: 0.4s;">
+            <div class="menu-item" onclick="scrollToSection('energy')">
                 <i class="fas fa-bolt"></i>
             </div>
         </div>
@@ -41,7 +35,7 @@
 
     <!-- Header -->
     <header class="text-center py-8 relative z-10">
-        <h1 class="glitch" data-text="MOTIVATION UNIVERSE">MOTIVATION UNIVERSE</h1>
+        <h1 class="glitch">MOTIVATION UNIVERSE</h1>
         <p class="neon-text mt-4 px-4">Your Journey from Sadness to Strength</p>
     </header>
 
@@ -55,7 +49,7 @@
                 id="emotionInput" 
                 class="emotion-input" 
                 rows="4" 
-                placeholder="Share your feelings... I'm here to help you feel better. Whether you're sad, anxious, or just need someone to listen, type it here..."
+                placeholder="Share your feelings... I'm here to help you feel better."
                 oninput="detectEmotion()"
             ></textarea>
             <div class="text-center mt-4">
@@ -70,16 +64,16 @@
     <!-- Responsive Grid Layout -->
     <div class="responsive-grid">
         <!-- 3D Motivation Cube Section -->
-        <section id="cube" class="holo-card">
+        <section id="cube" class="card">
             <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">Power Cube</h2>
             <div class="cube-container">
                 <div class="cube" onclick="activateCube()">
-                    <div class="cube-face front">BELIEVE</div>
-                    <div class="cube-face back">ACHIEVE</div>
-                    <div class="cube-face right">CREATE</div>
-                    <div class="cube-face left">INSPIRE</div>
-                    <div class="cube-face top">DREAM</div>
-                    <div class="cube-face bottom">WIN</div>
+                    <div class="cube-face">BELIEVE</div>
+                    <div class="cube-face">ACHIEVE</div>
+                    <div class="cube-face">CREATE</div>
+                    <div class="cube-face">INSPIRE</div>
+                    <div class="cube-face">DREAM</div>
+                    <div class="cube-face">WIN</div>
                 </div>
             </div>
             <p class="text-white text-center mt-4 text-sm">Click for your power word!</p>
@@ -92,30 +86,18 @@
         </section>
 
         <!-- Breathing Exercise -->
-        <section id="breathing" class="holo-card">
+        <section id="breathing" class="card">
             <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
                 <i class="fas fa-wind mr-2"></i>Breathing Exercise
             </h2>
             <div class="breathing-circle" id="breathingCircle" onclick="startBreathing()">
                 Click to Start
             </div>
-            <p id="breathingText" class="text-white text-center mt-4">Click the circle to begin calming your mind</p>
-            <div class="text-center mt-4">
-                <svg class="progress-ring" viewBox="0 0 120 120">
-                    <circle class="progress-ring-circle" 
-                            stroke="#667eea" 
-                            stroke-width="4" 
-                            fill="transparent" 
-                            r="52" 
-                            cx="60" 
-                            cy="60"
-                            id="progressCircle"/>
-                </svg>
-            </div>
+            <p id="breathingText" class="text-white text-center mt-4">Click circle to begin calming your mind</p>
         </section>
 
         <!-- Energy Collection -->
-        <section id="energy" class="holo-card">
+        <section id="energy" class="card">
             <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
                 <i class="fas fa-bolt mr-2"></i>Energy Collection
             </h2>
@@ -134,7 +116,7 @@
         </section>
 
         <!-- Sadness to Strength -->
-        <section class="holo-card">
+        <section class="card">
             <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
                 <i class="fas fa-sun mr-2"></i>Sadness to Strength
             </h2>
@@ -149,7 +131,7 @@
         </section>
 
         <!-- Daily Wisdom -->
-        <section class="holo-card">
+        <section class="card">
             <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
                 <i class="fas fa-lightbulb mr-2"></i>Daily Wisdom
             </h2>
@@ -162,7 +144,7 @@
         </section>
 
         <!-- Gratitude Journal -->
-        <section class="holo-card">
+        <section class="card">
             <h2 class="text-xl md:text-2xl font-bold text-white text-center mb-6">
                 <i class="fas fa-heart mr-2"></i>Gratitude Journal
             </h2>
@@ -182,7 +164,7 @@
     </div>
 
     <!-- Credit Section -->
-    <section class="credit-section">
+    <section class="card">
         <h3 class="text-2xl font-bold text-white mb-4">
             <i class="fas fa-code mr-2"></i>Created With Love
         </h3>
@@ -194,11 +176,12 @@
     </section>
 
     <!-- Achievement Popup -->
-    <div id="achievementPopup" class="achievement-popup hidden">
+    <div id="achievementPopup" class="achievement-popup">
         <h2 class="text-2xl font-bold mb-4">🌟 You're Amazing!</h2>
         <p id="achievementText" class="text-lg"></p>
     </div>
-
     <script src="script.js"></script>
+
+   
 </body>
 </html>
