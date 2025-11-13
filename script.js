@@ -1,9 +1,11 @@
-  // Initialize galaxy background
+
+        // Initialize simple galaxy background
         function createGalaxy() {
             const galaxy = document.getElementById('galaxy');
             
-            // Create stars
-            for (let i = 0; i < 150; i++) {
+            // Create fewer stars for mobile performance
+            const starCount = window.innerWidth <= 768 ? 30 : 80;
+            for (let i = 0; i < starCount; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
@@ -11,19 +13,6 @@
                 star.style.width = star.style.height = Math.random() * 3 + 'px';
                 star.style.animationDelay = Math.random() * 3 + 's';
                 galaxy.appendChild(star);
-            }
-            
-            // Create nebulae
-            const colors = ['#ff006e', '#8338ec', '#3a86ff', '#06ffa5'];
-            for (let i = 0; i < 3; i++) {
-                const nebula = document.createElement('div');
-                nebula.className = 'nebula';
-                nebula.style.left = Math.random() * 100 + '%';
-                nebula.style.top = Math.random() * 100 + '%';
-                nebula.style.width = nebula.style.height = Math.random() * 200 + 150 + 'px';
-                nebula.style.background = colors[i];
-                nebula.style.animationDelay = i * 5 + 's';
-                galaxy.appendChild(nebula);
             }
         }
 
@@ -33,7 +22,6 @@
             const responseDiv = document.getElementById('emotionResponse');
             
             if (input.length > 10) {
-                // Simple emotion detection keywords
                 if (input.includes('sad') || input.includes('depressed') || input.includes('unhappy')) {
                     responseDiv.innerHTML = `<div class="p-4 bg-blue-500/20 rounded-lg">
                         <p class="text-lg">I sense you're feeling down. Remember, this feeling is temporary.</p>
@@ -60,7 +48,6 @@
                 return;
             }
             
-            // Simulate processing
             const responseDiv = document.getElementById('emotionResponse');
             responseDiv.innerHTML = '<div class="text-white">Analyzing your feelings... <span class="loading-heart">❤️</span></div>';
             
@@ -78,11 +65,6 @@
                     <p class="text-lg">${randomResponse}</p>
                     <p class="mt-3 text-sm">Try the breathing exercise or collect some energy orbs to feel better.</p>
                 </div>`;
-                
-                // Auto-suggest breathing exercise
-                setTimeout(() => {
-                    document.getElementById('breathingCircle').scrollIntoView({ behavior: 'smooth' });
-                }, 2000);
             }, 2000);
         }
 
@@ -121,7 +103,9 @@
             const container = document.getElementById('energyContainer');
             container.innerHTML = '';
             
-            for (let i = 0; i < 6; i++) {
+            // Create fewer orbs on mobile for better performance
+            const orbCount = window.innerWidth <= 768 ? 4 : 6;
+            for (let i = 0; i < orbCount; i++) {
                 const orb = document.createElement('div');
                 orb.className = 'energy-orb';
                 orb.style.left = Math.random() * 70 + 15 + '%';
@@ -144,9 +128,6 @@
             // Update mood progress
             const progress = Math.min((energyCount / 20) * 100, 100);
             document.getElementById('moodBar').style.width = progress + '%';
-            
-            // Create particle effect
-            createParticles(orb);
             
             // Remove orb and create new one
             orb.remove();
@@ -173,27 +154,6 @@
                 showAchievement("Energy Master! Your mood is lifting!");
             } else if (energyCount === 50) {
                 showAchievement("Energy Legend! You're radiating positivity!");
-            }
-        }
-
-        function createParticles(element) {
-            const rect = element.getBoundingClientRect();
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
-            
-            for (let i = 0; i < 8; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = x + 'px';
-                particle.style.top = y + 'px';
-                particle.style.width = particle.style.height = Math.random() * 10 + 5 + 'px';
-                particle.style.background = `hsl(${Math.random() * 360}, 100%, 70%)`;
-                particle.style.borderRadius = '50%';
-                particle.style.setProperty('--x', (Math.random() - 0.5) * 150 + 'px');
-                particle.style.setProperty('--y', (Math.random() - 0.5) * 150 + 'px');
-                document.body.appendChild(particle);
-                
-                setTimeout(() => particle.remove(), 2000);
             }
         }
 
@@ -225,16 +185,16 @@
                 clearInterval(breathingInterval);
                 breathingInterval = null;
                 circle.textContent = 'Click to Start';
-                text.textContent = 'Click the circle to begin calming your mind';
+                text.textContent = 'Click circle to begin calming your mind';
                 return;
             }
             
             let phase = 0;
             const phases = [
-                { text: 'Breathe In...', scale: 1.3, duration: 4000 },
-                { text: 'Hold...', scale: 1.3, duration: 4000 },
-                { text: 'Breathe Out...', scale: 1, duration: 4000 },
-                { text: 'Hold...', scale: 1, duration: 4000 }
+                { text: 'Breathe In...', scale: 1.3 },
+                { text: 'Hold...', scale: 1.3 },
+                { text: 'Breathe Out...', scale: 1 },
+                { text: 'Hold...', scale: 1 }
             ];
             
             function runBreathing() {
@@ -245,13 +205,6 @@
                 
                 phase = (phase + 1) % phases.length;
                 breathingCount++;
-                
-                // Update progress circle
-                const circumference = 2 * Math.PI * 52;
-                const progress = (breathingCount % 4) / 4;
-                const offset = circumference - (progress * circumference);
-                document.getElementById('progressCircle').style.strokeDasharray = `${circumference} ${circumference}`;
-                document.getElementById('progressCircle').style.strokeDashoffset = offset;
                 
                 if (breathingCount % 8 === 0) {
                     showAchievement("Great job! You're mastering your breath!");
@@ -347,28 +300,21 @@
             const popup = document.getElementById('achievementPopup');
             const textElement = document.getElementById('achievementText');
             textElement.textContent = text;
-            popup.classList.remove('hidden');
+            popup.classList.add('show');
             
             setTimeout(() => {
-                popup.classList.add('hidden');
+                popup.classList.remove('show');
             }, 3000);
         }
 
         function toggleMenu() {
             const menuItems = document.getElementById('menuItems');
-            menuItems.classList.toggle('active');
+            menuItems.classList.toggle('show');
         }
 
         function scrollToSection(sectionId) {
             document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
             toggleMenu();
-        }
-
-        // Check if element is an input field
-        function isInputElement(element) {
-            const tagName = element.tagName.toLowerCase();
-            const inputTypes = ['input', 'textarea', 'select'];
-            return inputTypes.includes(tagName) || element.contentEditable === 'true';
         }
 
         // Initialize everything when page loads
@@ -387,13 +333,14 @@
         // Regenerate energy orbs periodically
         setInterval(createEnergyOrbs, 25000);
 
-        // Add keyboard shortcuts (FIXED - Only work when not typing in inputs)
+        // Add keyboard shortcuts
         document.addEventListener('keydown', (e) => {
-            // Check if the active element is an input field
+            // Check if active element is an input field
             const activeElement = document.activeElement;
+            const isInput = activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA';
             
-            // Only trigger shortcuts if NOT typing in an input field
-            if (!isInputElement(activeElement)) {
+            // Only trigger shortcuts if NOT typing in inputs
+            if (!isInput) {
                 if (e.key === ' ') {
                     e.preventDefault();
                     generatePowerQuote();
@@ -422,3 +369,4 @@
                 document.getElementById('emotionInput').value = lastEmotion;
             }
         });
+   
